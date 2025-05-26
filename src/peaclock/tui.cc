@@ -623,6 +623,14 @@ void Tui::get_input()
             break;
           }
 
+          case Peaclock::Toggle::label:
+          {
+            _peaclock.cfg.style.label.hue(_peaclock.cfg.style.label.hue() - 0.5);
+            set_status(true, "hue " + OB::String::to_string(_peaclock.cfg.style.label.hue()));
+
+            break;
+          }
+
           case Peaclock::Toggle::background:
           {
             _ctx.style.background.hue(_ctx.style.background.hue() - 0.5);
@@ -733,6 +741,14 @@ void Tui::get_input()
             break;
           }
 
+          case Peaclock::Toggle::label:
+          {
+            _peaclock.cfg.style.label.sat(_peaclock.cfg.style.label.sat() - 0.5);
+            set_status(true, "sat " + OB::String::to_string(_peaclock.cfg.style.label.sat()));
+
+            break;
+          }
+
           case Peaclock::Toggle::background:
           {
             _ctx.style.background.sat(_ctx.style.background.sat() - 0.5);
@@ -831,6 +847,14 @@ void Tui::get_input()
           {
             _peaclock.cfg.style.colon_bg.sat(_peaclock.cfg.style.colon_bg.sat() + 0.5);
             set_status(true, "sat " + OB::String::to_string(_peaclock.cfg.style.colon_bg.sat()));
+
+            break;
+          }
+
+          case Peaclock::Toggle::label:
+          {
+            _peaclock.cfg.style.label.sat(_peaclock.cfg.style.label.sat() + 0.5);
+            set_status(true, "sat " + OB::String::to_string(_peaclock.cfg.style.label.sat()));
 
             break;
           }
@@ -945,6 +969,14 @@ void Tui::get_input()
             break;
           }
 
+          case Peaclock::Toggle::label:
+          {
+            _peaclock.cfg.style.label.hue(_peaclock.cfg.style.label.hue() + 0.5);
+            set_status(true, "hue " + OB::String::to_string(_peaclock.cfg.style.label.hue()));
+
+            break;
+          }
+
           case Peaclock::Toggle::date:
           {
             _peaclock.cfg.style.date.hue(_peaclock.cfg.style.date.hue() + 0.5);
@@ -1023,6 +1055,14 @@ void Tui::get_input()
             break;
           }
 
+          case Peaclock::Toggle::label:
+          {
+            _peaclock.cfg.style.label.lum(_peaclock.cfg.style.label.lum() - 0.5);
+            set_status(true, "lum " + OB::String::to_string(_peaclock.cfg.style.label.lum()));
+
+            break;
+          }
+
           case Peaclock::Toggle::date:
           {
             _peaclock.cfg.style.date.lum(_peaclock.cfg.style.date.lum() - 0.5);
@@ -1081,6 +1121,14 @@ void Tui::get_input()
           {
             _peaclock.cfg.style.inactive_bg.lum(_peaclock.cfg.style.inactive_bg.lum() + 0.5);
             set_status(true, "lum " + OB::String::to_string(_peaclock.cfg.style.inactive_bg.lum()));
+
+            break;
+          }
+
+          case Peaclock::Toggle::label:
+          {
+            _peaclock.cfg.style.label.lum(_peaclock.cfg.style.label.lum() + 0.5);
+            set_status(true, "lum " + OB::String::to_string(_peaclock.cfg.style.label.lum()));
 
             break;
           }
@@ -1851,7 +1899,7 @@ std::optional<std::pair<bool, std::string>> Tui::command(std::string const& inpu
   }
 
   else if (keys.at(0) == "toggle" && (match_opt = OB::String::match(input,
-    std::regex("^toggle(?:\\s+(block|padding|margin|ratio|active-fg|inactive-fg|colon-fg|active-bg|inactive-bg|colon-bg|date|background))?$"))))
+    std::regex("^toggle(?:\\s+(block|padding|margin|ratio|active-fg|inactive-fg|colon-fg|active-bg|inactive-bg|colon-bg|date|label|background))?$"))))
   {
     auto const match = match_opt.value().at(1);
 

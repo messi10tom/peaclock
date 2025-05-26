@@ -1,6 +1,7 @@
 #include "peaclock/peaclock.hh"
 
 #include "ob/rect.hh"
+#include "peaclock.hh"
 using Rect = OB::Rect;
 
 #include "ob/string.hh"
@@ -296,7 +297,7 @@ void Peaclock::draw_label(std::ostringstream& buf)
     _ctx.text.xy_max(_ctx.width + 1, _ctx.height + 1);
     _ctx.text.xy(0, y);
     _ctx.text.wh(_ctx.width, cfg.label.label_height);
-    _ctx.text.color_fg(cfg.style.date);
+    _ctx.text.color_fg(cfg.style.label);
     _ctx.text.color_bg(cfg.style.background);
     _ctx.text.text(cfg.label.text);
     _ctx.text.align(cfg.label.align, Rect::Align::top);

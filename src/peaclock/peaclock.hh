@@ -195,6 +195,7 @@ public:
       colon_fg,
       colon_bg,
       date,
+      label,
       background,
     };
 
@@ -240,6 +241,11 @@ public:
         case 'd':
         {
           return date;
+        }
+
+        case 'l':
+        {
+          return label;
         }
 
         case 'i':
@@ -400,14 +406,18 @@ public:
       OB::Color colon_bg {"", OB::Color::Type::bg};
 
       // OB::Color title {"", OB::Color::Type::fg};
+      OB::Color label {"", OB::Color::Type::fg};
       OB::Color date {"", OB::Color::Type::fg};
       OB::Color background {"", OB::Color::Type::bg};
     } style;
 
-    struct Label {
+    struct Label 
+    {
       std::string text;
       bool _label {true};
+
       std::size_t label_height = 1;
+
       OB::Rect::Align align = OB::Rect::Align::center;
     } label;
   } cfg;
