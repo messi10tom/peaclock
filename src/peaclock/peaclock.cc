@@ -288,6 +288,23 @@ void Peaclock::draw_date(std::ostringstream& buf)
   }
 }
 
+void Peaclock::draw_label(std::ostringstream& buf)
+{
+  if (cfg.label._label && cfg.label.text.size())
+  {
+    std::size_t const y = 0;
+    _ctx.text.xy_max(_ctx.width + 1, _ctx.height + 1);
+    _ctx.text.xy(0, y);
+    _ctx.text.wh(_ctx.width, cfg.label.label_height);
+    _ctx.text.color_fg(cfg.style.date);
+    _ctx.text.color_bg(cfg.style.background);
+    _ctx.text.text(cfg.label.text);
+    _ctx.text.align(cfg.label.align, Rect::Align::top);
+
+    buf << _ctx.text;
+  }
+}
+
 void Peaclock::render(std::size_t const width, std::size_t const height, std::ostringstream& buf)
 {
   init_ctx(width, height);
@@ -296,6 +313,7 @@ void Peaclock::render(std::size_t const width, std::size_t const height, std::os
   // draw_title(buf);
   draw_clock(buf);
   draw_date(buf);
+  draw_label(buf);
 }
 
 std::size_t Peaclock::find(Peaclock::Clock const& vec, int const val, std::size_t const pos) const

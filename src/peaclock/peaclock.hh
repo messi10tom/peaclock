@@ -403,6 +403,13 @@ public:
       OB::Color date {"", OB::Color::Type::fg};
       OB::Color background {"", OB::Color::Type::bg};
     } style;
+
+    struct Label {
+      std::string text;
+      bool _label {true};
+      std::size_t label_height = 1;
+      OB::Rect::Align align = OB::Rect::Align::center;
+    } label;
   } cfg;
 
   // void cfg_titlefmt(std::string const& str);
@@ -584,6 +591,7 @@ private:
   void draw_clock(std::ostringstream& buf);
   void draw_ascii(std::ostringstream& buf);
   void draw_date(std::ostringstream& buf);
+  void draw_label(std::ostringstream& buf);
 };
 
 #endif // PEACLOCK_HH

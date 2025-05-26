@@ -242,6 +242,11 @@ inline void program_init(Parg& pg)
         "auto size the clock to fill the screen, overrides the current x y block size"},
       {"auto-ratio",
         "auto size the clock to use the aspect ratio set by the command 'ratio', overrides the current x y block size and auto-size"},
+      {"label",
+        "turn on label if label is set"},
+    }},
+    {"set label \"<text>\"", {
+      {"", "set the label text"},
     }},
     {"style <value> <#000-#fff|#000000-#ffffff|0-255|Colour|reverse|clear>", {
       {"active-fg",

@@ -15,6 +15,8 @@ namespace aec = OB::Term::ANSI_Escape_Codes;
 #include <cstdint>
 #include <cstdlib>
 
+#include <charconv>
+#include <unordered_map>
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -2373,6 +2375,60 @@ std::optional<std::pair<bool, std::string>> Tui::command(std::string const& inpu
       else
       {
         _peaclock.cfg.auto_ratio = false;
+      }
+    }
+
+    else if ((match_opt = OB::String::match(input,
+            std::regex("^set\\s+label\\s+\"(.+)\"$"))))
+    {
+      auto const match = match_opt.value().at(1);
+
+      if (match.empty())
+      {
+        // TODO
+      }
+      else 
+      {
+        _peaclock.cfg.label.text = match;
+      }
+    }
+
+    else if ((match_opt = OB::String::match(input,
+            std::regex(R"(^set\s+label-align\s+(l|hl|c|hr|r|left|half-left|center|half-right|right)$)"))))
+    {
+      auto const match = match_opt.value().at(1);
+
+      std::unordered_map<std::string, OB::Rect::Align> align_map = {
+        {"left", OB::Rect::Align::left}, {"l", OB::Rect::Align::left},
+        {"half-left", OB::Rect::Align::halfLeft}, {"hl", OB::Rect::Align::halfLeft},
+        {"center", OB::Rect::Align::center}, {"c", OB::Rect::Align::center},
+        {"half-right", OB::Rect::Align::halfRight}, {"hr", OB::Rect::Align::halfRight},
+        {"right", OB::Rect::Align::right}, {"r", OB::Rect::Align::right}
+      };
+
+      if (auto it = align_map.find(match); it != align_map.end()) {
+        _peaclock.cfg.label.align = it->second;
+      } else {
+        // TODO: handle invalid input
+      }
+    }
+
+    else if ((match_opt = OB::String::match(input,
+            std::regex("^set\\s+label(?:\\s+(true|false|t|f|1|0|on|off))?$"))))
+    {
+      auto const match = match_opt.value().at(1);
+
+      if (match.empty())
+      {
+        return std::make_pair(true, "set label "s + btos(_peaclock.cfg.label._label));
+      }
+      else if ("true" == match || "t" == match || "1" == match || "on" == match)
+      {
+        _peaclock.cfg.label._label = true;
+      }
+      else
+      {
+        _peaclock.cfg.label._label = false;
       }
     }
 

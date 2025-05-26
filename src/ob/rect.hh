@@ -27,7 +27,9 @@ public:
     top,
     bottom,
     left,
-    right
+    right,
+    halfLeft,
+    halfRight
   };
 
   Rect() = default;
@@ -353,30 +355,50 @@ public:
           switch (_x_align)
           {
             case Align::center:
-            {
-              if (text_width / 2 >= tcols / 2)
               {
-                x_begin = text_width / 2 - tcols / 2;
-              }
+                if (text_width / 2 >= tcols / 2)
+                {
+                  x_begin = text_width / 2 - tcols / 2;
+                }
 
-              break;
-            }
+                break;
+              }
 
             case Align::right:
-            {
-              if (text_width >= tcols)
               {
-                x_begin = text_width - tcols;
+                if (text_width >= tcols)
+                {
+                  x_begin = text_width - tcols;
+                }
+
+                break;
               }
 
-              break;
-            }
+            case Align::halfRight:
+              {
+                if (text_width >= tcols)
+                {
+                  x_begin = 0.75 * (text_width - tcols);
+                }
+
+                break;
+              }
+
+            case Align::halfLeft:
+              {
+                if (text_width >= tcols)
+                {
+                  x_begin = 0.25 * (text_width - tcols);
+                }
+
+                break;
+              }
 
             case Align::left:
             default:
-            {
-              break;
-            }
+              {
+                break;
+              }
           }
 
           while (x_begin-- > 0)
